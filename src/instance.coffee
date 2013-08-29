@@ -65,7 +65,7 @@ module.exports = class Instance
             #          </select>
             #       </div>
             #
-            element.render value
+            element.render value, key.split('@')[1]
 
         # Rendering nested models breadth-first is more robust, as there might be colliding keys,
         # i.e., given a model

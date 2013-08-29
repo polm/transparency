@@ -31,7 +31,7 @@ class Element
     for name, attribute of @attributes
       attribute.set attribute.templateValue
 
-  render: (value) -> @attr 'text', value
+  render: (value, prop) -> @attr (prop || 'text'), value
 
   attr: (name, value) ->
     attribute = @attributes[name] ||= AttributeFactory.createAttribute @el, name, value
@@ -55,10 +55,10 @@ class Select extends Element
     super el
     @elements = helpers.getElements el
 
-  render: (value) ->
+  render: (value, prop) ->
     value = value.toString()
     for option in @elements when option.nodeName == 'option'
-      option.attr 'selected', option.el.value == value
+      option.attr (prop || 'selected'), option.el.value == value
 
 
 class VoidElement extends Element
@@ -74,7 +74,7 @@ class VoidElement extends Element
 
 
 class Input extends VoidElement
-  render: (value) -> @attr 'value', value
+  render: (value, prop) -> @attr (prop || 'value'), value
 
 
 class TextArea extends Input
@@ -84,7 +84,7 @@ class TextArea extends Input
 class Checkbox extends Input
   ElementFactory.Elements['input']['checkbox'] = this
 
-  render: (value) -> @attr 'checked', Boolean(value)
+  render: (value) -> @attr (prop || 'checked'), Boolean(value)
 
 
 class Radio extends Checkbox

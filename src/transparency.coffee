@@ -61,6 +61,7 @@ Transparency.render = (context, models = [], directives = {}, options = {}) ->
 #     };
 #
 Transparency.matcher = (element, key) ->
+  [key, prop] = key.split '@'
   element.el.id                        == key ||
   key in element.classNames                   ||
   element.el.name                      == key ||
